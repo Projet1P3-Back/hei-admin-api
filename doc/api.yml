@@ -260,6 +260,130 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /students/{sId}/transcripts/{tId}/versions/{vId}/claims:
+    get:
+      tags:
+        - User
+      summary: Get all claims of student by transcript version
+      operationId: getClaims
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: version
+        - name: transcriptId
+          in: path
+          required: true
+          schema:
+            type: transcript
+        - name: reason
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: path
+          required: true
+          schema:
+            type: enum
+        - name: closedDatetime
+          in: path
+          required: true
+          schema:
+            type: date
+        - name: creationDatetime
+          in: path
+          required: true
+          schema:
+            type: date
+
+      responses:
+        '200':
+          description: Claims of student of version specific transcript
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentCourseExam'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /students/{sId}/transcripts/{tId}/versions/{vId}/claims/{cId}:
+    get:
+      tags:
+        - User
+      summary: get specific claims of student by transcript version
+      operationId: getClaims
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: version
+        - name: transcriptId
+          in: path
+          required: true
+          schema:
+            type: transcript
+        - name: reason
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: path
+          required: true
+          schema:
+            type: enum
+        - name: closedDatetime
+          in: path
+          required: true
+          schema:
+            type: date
+        - name: creationDatetime
+          in: path
+          required: true
+          schema:
+            type: date
+
+      responses:
+        '200':
+          description: Specific claims of student of version specific transcript
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentCourseExam'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /students/{student_id}/grades:
     get:
       tags:
