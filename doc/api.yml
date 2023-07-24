@@ -697,12 +697,41 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /students/{sId}/transcripts/{tId}/versions/{vId}/raw:
+  /students/{sId}/transcripts/:
     get:
       tags:
         - Users
-      summary: Get PDF file of a specific transcript version 
-      description: Returns the PDF file of a specific transcript version for a student.
+      summary: Get  transcript by student ID
+      description: Returns transcripts by student id
+      parameters:
+        - name: sId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The specified participant with his grade
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Transcript'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /students/{sId}/transcripts/{tId}:
+    get:
+      tags:
+        - Users
+      summary: Get  transcript by student ID
+      description: Returns transcripts by student id
       parameters:
         - name: sId
           in: path
@@ -714,18 +743,13 @@ paths:
           required: true
           schema:
             type: string
-        - name: vId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: The specified participant with his grade
           content:
             application/pdf:
               schema:
-                $ref: '#/components/schemas/Version'
+                $ref: '#/components/schemas/Transcript'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -1302,6 +1326,7 @@ components:
         creation_datetime:
           type: string
           format: date-time
+    
     Version:
       type: object
       properties:
@@ -1446,6 +1471,7 @@ components:
         created_at:
           type: string
           format: date-time
+    
     StudentGrade:
       allOf:
         - $ref: '#/components/schemas/UserIdentifier'
