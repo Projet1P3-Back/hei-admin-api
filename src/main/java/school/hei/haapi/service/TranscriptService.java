@@ -10,23 +10,32 @@ import school.hei.haapi.model.PageFromOne;
 import school.hei.haapi.model.Transcript;
 import school.hei.haapi.repository.TranscriptRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Service
 @AllArgsConstructor
+
 public class TranscriptService {
+
     private  final TranscriptRepository transcriptRepository;
-    public List<Transcript> getByStudentId(String studentId, PageFromOne page, BoundedPageSize pageSize){
+
+@Transactional
+    public List<Transcript> saveAll(List<Transcript> transcripts){
+    return transcriptRepository.saveAll(transcripts);
+}
+    public List<Transcript> getTranscriptByStudentId(String studentId, PageFromOne page, BoundedPageSize pageSize){
+
         Pageable pageable = PageRequest.of(
                 page.getValue() - 1,
                 pageSize.getValue(),
                 Sort.by(DESC, "creationDatetime"));
-        return transcriptRepository.findAll();
+        return transcriptRepository.findAllByStudentId(studentId,pageable);
     }
-    public  Transcript getTranscriptById(String transcriptId){
-        return  transcriptRepository.getById(transcriptId);
+    public  Transcript getByStudentIdAndId(String studentId,String transcriptId){
+        return  transcriptRepository.getByStudentIdAndId(studentId,transcriptId);
     }
 
 
