@@ -8,13 +8,12 @@ end
 $$;
 
 create table if not exists "transcript_claim" (
-    id varchar constraint transcript_claim_pk
-        primary key ,
-    reason text not null,
-    claim_status claim_status not null,
-    closed_datetime timestamp,
-    creation_datetime timestamp,
-    transcript_version_id varchar not null
+    id                      varchar constraint transcript_claim_pk primary key ,
+    reason                  text not null,
+    claim_status            claim_status not null,
+    closed_datetime         timestamp,
+    creation_datetime       timestamp default now(),
+    transcript_version_id   varchar not null
         constraint transcript_version_fk references "transcript_version" (id)
 );
 
